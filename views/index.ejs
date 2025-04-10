@@ -1,0 +1,73 @@
+<%- include('partials/header') %>
+<main>
+
+<!-- Carrusel de Expansiones -->
+<div class="carousel-container">
+  <div class="carousel">
+    <!-- Slide 1 - Battle of Legends -->
+    <div class="carousel-slide">
+      <img src="/images/carousel/galleryimage03.png" alt="Battle of Legends">
+      <div class="carousel-caption">
+        <h3>Battle of Legends</h3>
+        <p>Descubre las cartas más poderosas de esta legendaria expansión</p>
+        <a href="/products" class="carousel-btn">Explorar Productos</a>
+      </div>
+    </div>
+    
+    <!-- Slide 2 - Photon Hypernova -->
+    <div class="carousel-slide">
+      <img src="/images/carousel/photonHy-1-1.jpg" alt="Photon Hypernova">
+      <div class="carousel-caption">
+        <h3>Photon Hypernova</h3>
+        <p>La nueva era de duelos cuánticos ha comenzado</p>
+        <a href="/products?category=booster" class="carousel-btn">Explorar Expansión</a>
+      </div>
+    </div>
+    
+    <!-- Slide 3 - Blue-Eyes -->
+    <div class="carousel-slide">
+      <img src="/images/carousel/UBAdventOfTheBlueEyes.jpg" alt="Blue-Eyes White Dragon">
+      <div class="carousel-caption">
+        <h3>Blue-Eyes White Dragon</h3>
+        <p>Colecciona las versiones más raras del dragón legendario</p>
+        <a href="/products?search=blue+eyes" class="carousel-btn">Ver Colección</a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Flechas de navegación -->
+  <button class="carousel-arrow prev">❮</button>
+  <button class="carousel-arrow next">❯</button>
+  
+  <!-- Puntos de navegación -->
+  <div class="carousel-nav">
+    <div class="carousel-dot active"></div>
+    <div class="carousel-dot"></div>
+    <div class="carousel-dot"></div>
+  </div>
+</div>
+
+<!-- Productos Destacados -->
+<section class="featured">
+  <h2 class="section-title">Productos Destacados</h2>
+  <div class="products-grid">
+    <% featuredProducts.forEach(product => { %>
+      <div class="product-card">
+        <% if(product.rarity) { %>
+          <span class="rarity"><%= product.rarity %></span>
+        <% } %>
+        <div class="product-image">
+          <img src="/images/products/<%= product.image_url %>" alt="<%= product.name %>">
+        </div>
+        <div class="product-info">
+          <h3><%= product.name %></h3>
+          <p class="price">$<%= parseFloat(product.price).toFixed(2) %></p>
+          <a href="/products/<%= product.id %>" class="btn">Ver Detalles</a>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</section>
+    
+</main>
+<%- include('partials/footer') %>
