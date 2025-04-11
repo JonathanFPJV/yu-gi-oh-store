@@ -1,0 +1,141 @@
+<%- include('partials/header') %>
+
+<main class="form-container">
+  <div class="form-card">
+    <h2 class="form-title">Agregar Nuevo Producto</h2>
+    
+    <form action="/products/add" method="POST" enctype="multipart/form-data" class="product-form">
+      <!-- Nombre del Producto -->
+      <div class="form-group">
+        <label for="name">Nombre del Producto*</label>
+        <input 
+          type="text" 
+          id="name" 
+          name="name" 
+          required
+          class="form-input"
+          placeholder="Ej: Blue-Eyes White Dragon"
+        >
+      </div>
+
+      <!-- Descripción -->
+      <div class="form-group">
+        <label for="description">Descripción</label>
+        <textarea 
+          id="description" 
+          name="description" 
+          rows="4"
+          class="form-textarea"
+          placeholder="Descripción detallada del producto..."
+        ></textarea>
+      </div>
+
+      <!-- Precio y Stock -->
+      <div class="form-row">
+        <div class="form-group half-width">
+          <label for="price">Precio (USD)*</label>
+          <input 
+            type="number" 
+            id="price" 
+            name="price" 
+            min="0" 
+            step="0.01"
+            required
+            class="form-input"
+            placeholder="Ej: 24.99"
+          >
+        </div>
+        
+        <div class="form-group half-width">
+          <label for="stock">Stock Disponible*</label>
+          <input 
+            type="number" 
+            id="stock" 
+            name="stock" 
+            min="0"
+            required
+            class="form-input"
+            placeholder="Ej: 50"
+          >
+        </div>
+      </div>
+
+      <!-- Categoría y Rareza -->
+      <div class="form-row">
+        <div class="form-group half-width">
+          <label for="category">Categoría*</label>
+          <select id="category" name="category" required class="form-select">
+            <option value="">Seleccione una categoría</option>
+            <option value="carta">Carta Individual</option>
+            <option value="booster">Booster Pack</option>
+            <option value="accesorio">Accesorio</option>
+          </select>
+        </div>
+        
+        <div class="form-group half-width">
+          <label for="rarity">Rareza (solo para cartas)</label>
+          <select id="rarity" name="rarity" class="form-select">
+            <option value="">N/A</option>
+            <option value="Common">Common</option>
+            <option value="Rare">Rare</option>
+            <option value="Super Rare">Super Rare</option>
+            <option value="Ultra Rare">Ultra Rare</option>
+            <option value="Secret Rare">Secret Rare</option>
+            <option value="Ghost Rare">Ghost Rare</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Imagen del Producto -->
+      <div class="form-group">
+        <label for="image">Imagen del Producto*</label>
+        <div class="file-upload">
+          <input 
+            type="file" 
+            id="image" 
+            name="image" 
+            accept="image/*"
+            required
+            class="form-file"
+          >
+          <label for="image" class="file-label">
+            <i class="fas fa-upload"></i>
+            <span id="file-name">Seleccionar archivo...</span>
+          </label>
+        </div>
+        <small class="form-hint">Formatos: JPG, PNG. Máx. 2MB</small>
+      </div>
+
+      <!-- Botones -->
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-save"></i> Guardar Producto
+        </button>
+        <a href="/products" class="btn btn-secondary">
+          <i class="fas fa-times"></i> Cancelar
+        </a>
+      </div>
+    </form>
+  </div>
+</main>
+
+<%- include('partials/footer') %>
+
+<script>
+  // Mostrar nombre del archivo seleccionado
+  document.getElementById('image').addEventListener('change', function(e) {
+    const fileName = e.target.files[0] ? e.target.files[0].name : 'Seleccionar archivo...';
+    document.getElementById('file-name').textContent = fileName;
+  });
+
+  // Mostrar campo rareza solo para cartas
+  document.getElementById('category').addEventListener('change', function() {
+    const rarityField = document.getElementById('rarity').closest('.form-group');
+    if (this.value === 'carta') {
+      rarityField.style.display = 'block';
+    } else {
+      rarityField.style.display = 'none';
+      document.getElementById('rarity').value = '';
+    }
+  });
+</script>
