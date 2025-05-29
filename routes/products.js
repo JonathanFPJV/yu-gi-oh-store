@@ -115,4 +115,90 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// Eliminar producto por ID
+router.post('/delete/:id', async (req, res) => {
+  try {
+    const [product] = await pool.query('SELECT image_url FROM products WHERE id = ?', [req.params.id]);
+
+    if (product.length === 0) {
+      req.flash('error', 'Producto no encontrado');
+      return res.redirect('/products');
+    }
+
+    // Eliminar imagen del sistema de archivos
+    const imagePath = path.join(__dirname, '..', 'public', product[0].image_url);
+    fs.unlink(imagePath, (err) => {
+      if (err) console.error('No se pudo eliminar la imagen:', err);
+    });
+
+    await pool.query('DELETE FROM products WHERE id = ?', [req.params.id]);
+    req.flash('success', 'Producto eliminado correctamente');
+    res.redirect('/products');
+  } catch (err) {
+    console.error('Error al eliminar producto:', err);
+    req.flash('error', 'No se pudo eliminar el producto');
+    res.redirect('/products');
+  }
+});
+
+// Mostrar formulario para editar producto
+router.get('/edit/:id', async (req, res) => {
+  try {
+    const [product] = await pool.query('SELECT * FROM products WHERE id = ?', [req.params.id]);
+    if (product.length === 0) {
+      req.flash('error', 'Producto no encontrado');
+      return res.redirect('/products');
+    }
+
+    res.render('edit-product', {
+      product: product[0],
+      messages: {
+        error: req.flash('error'),
+        success: req.flash('success')
+      }
+    });
+  } catch (err) {
+    console.error('Error al obtener producto:', err);
+    req.flash('error', 'Error al cargar el formulario');
+    res.redirect('/products');
+  }
+});
+
+// Procesar edición de producto
+router.post('/edit/:id', upload.single('image'), async (req, res) => {
+  try {
+    const { name, description, price, category, rarity, stock } = req.body;
+    const [productData] = await pool.query('SELECT image_url FROM products WHERE id = ?', [req.params.id]);
+
+    if (productData.length === 0) {
+      req.flash('error', 'Producto no encontrado');
+      return res.redirect('/products');
+    }
+
+    let image_url = productData[0].image_url;
+
+    // Si se sube una nueva imagen, eliminar la anterior y actualizar URL
+    if (req.file) {
+      const oldImagePath = path.join(__dirname, '..', 'public', image_url);
+      fs.unlink(oldImagePath, (err) => {
+        if (err) console.error('No se pudo eliminar imagen anterior:', err);
+      });
+
+      image_url = `/images/products/${req.file.filename}`;
+    }
+
+    await pool.query(
+      `UPDATE products SET name=?, description=?, price=?, category=?, rarity=?, stock=?, image_url=? WHERE id=?`,
+      [name, description, price, category, rarity, stock, image_url, req.params.id]
+    );
+
+    req.flash('success', 'Producto actualizado correctamente');
+    res.redirect('/products');
+  } catch (err) {
+    console.error('Error al editar producto:', err);
+    req.flash('error', 'No se pudo editar el producto');
+    res.redirect(`/products/edit/${req.params.id}`);
+  }
+});
+
 module.exports = router;

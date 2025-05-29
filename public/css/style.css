@@ -1154,3 +1154,204 @@ footer {
     margin-right: 0;
   }
 }
+
+.delete-btn {
+  background: none;
+  border: none;
+  color: red;
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+.delete-btn:hover {
+  color: darkred;
+}
+
+/* Imagen actual */
+.current-image-section {
+  margin: 15px 0;
+}
+
+.image-preview img {
+  max-width: 150px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 5px;
+  background: #fff;
+}
+
+/* Botón */
+button.btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #0a2463;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+button.btn:hover {
+  background-color: #1d3c79;
+}
+
+/* Título de sección */
+.section-title {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #0a2463;
+}
+/*editar*/
+/* Estructura general del formulario */
+.form-section {
+  max-width: 600px;
+  margin: 40px auto;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2rem;
+  color: #0a2463;
+  margin-bottom: 25px;
+}
+
+/* Campos del formulario */
+.form label {
+  display: block;
+  margin-top: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+.form input[type="text"],
+.form input[type="number"],
+.form select,
+.form textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-top: 8px;
+  background-color: #f9f9f9;
+  transition: border 0.3s ease;
+  font-size: 1rem;
+}
+
+.form input:focus,
+.form select:focus,
+.form textarea:focus {
+  border-color: #0a2463;
+  outline: none;
+  background-color: #fff;
+}
+
+/* Textarea */
+.form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Botón de enviar */
+button.btn {
+  margin-top: 30px;
+  width: 100%;
+  padding: 14px;
+  background-color: #0a2463;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button.btn:hover {
+  background-color: #1d3c79;
+}
+
+/* Alerta de éxito y error */
+.alert {
+  padding: 12px 20px;
+  margin: 20px 0;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+.alert.success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.alert.error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Imagen actual */
+.current-image-section {
+  margin-top: 25px;
+}
+
+.image-preview img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+  padding: 4px;
+  margin-top: 10px;
+}
+
+/* Subida de imagen */
+.file-upload {
+  position: relative;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.file-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  background: #eef1f5;
+  border: 2px dashed #aaa;
+  border-radius: 8px;
+  color: #0a2463;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.file-label:hover {
+  background-color: #dbe2ec;
+}
+
+.file-label i {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+.form-file {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+}
+
+.form-hint {
+  margin-top: 6px;
+  font-size: 0.85rem;
+  color: #666;
+}

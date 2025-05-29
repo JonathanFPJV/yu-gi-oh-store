@@ -11,6 +11,12 @@
               <h3><%= product.name %></h3>
               <p class="price">$<%= parseFloat(product.price).toFixed(2) %></p>
               <a href="/products/<%= product.id %>" class="btn">Ver Detalles</a>
+              <a href="/products/edit/<%= product.id %>" class="btn">Editar</a>
+              <form action="/products/delete/<%= product.id %>" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este producto?');" style="display:inline;">
+                <button type="submit" class="delete-btn" title="Eliminar">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </form>
             </div>
           </div>
         <% }) %>

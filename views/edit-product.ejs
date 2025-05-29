@@ -1,0 +1,56 @@
+<%- include('partials/header') %>
+
+<section class="form-section animate__animated animate__fadeInDown">
+  <h2 class="section-title">Editar Producto</h2>
+
+  <% if (messages.error.length) { %>
+    <div class="alert error animate__animated animate__fadeInLeft"><%= messages.error %></div>
+  <% } %>
+  <% if (messages.success.length) { %>
+    <div class="alert success animate__animated animate__fadeInRight"><%= messages.success %></div>
+  <% } %>
+
+  <form action="/products/edit/<%= product.id %>" method="POST" enctype="multipart/form-data" class="form animate__animated animate__fadeInUp">
+    <label for="name">Nombre *</label>
+    <input type="text" name="name" value="<%= product.name %>" required>
+
+    <label for="description">Descripción</label>
+    <textarea name="description"><%= product.description %></textarea>
+
+    <label for="price">Precio *</label>
+    <input type="number" name="price" step="0.01" value="<%= product.price %>" required>
+
+    <label for="category">Categoría *</label>
+    <select name="category" required>
+      <option value="carta" <%= product.category === 'carta' ? 'selected' : '' %>>Carta</option>
+      <option value="booster" <%= product.category === 'booster' ? 'selected' : '' %>>Booster</option>
+      <option value="accesorio" <%= product.category === 'accesorio' ? 'selected' : '' %>>Accesorio</option>
+    </select>
+
+    <label for="rarity">Rareza</label>
+    <input type="text" name="rarity" value="<%= product.rarity %>">
+
+    <label for="stock">Stock *</label>
+    <input type="number" name="stock" value="<%= product.stock %>" required>
+
+    <div class="current-image-section">
+      <label>Imagen actual:</label>
+      <div class="image-preview animate__animated animate__zoomIn">
+        <img src="<%= product.image_url %>" alt="Imagen actual">
+      </div>
+    </div>
+
+    <label for="image">Nueva imagen (opcional):</label>
+    <div class="file-upload">
+      <label class="file-label" for="image">
+        <i class="fas fa-upload"></i> Elegir archivo
+        <input type="file" name="image" class="form-file" accept="image/jpeg,image/jpg,image/png" id="image">
+      </label>
+      <span class="form-hint">Solo formatos .jpg, .jpeg y .png</span>
+    </div>
+
+    <button type="submit" class="btn animate__animated animate__pulse">Actualizar</button>
+  </form>
+</section>
+
+<%- include('partials/footer') %>
